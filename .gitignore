@@ -25,6 +25,7 @@ out/
 *.iws
 *.iml
 *.ipr
+.idea
 
 # macOS system files
 .DS_Store

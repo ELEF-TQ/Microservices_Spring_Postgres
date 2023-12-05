@@ -2,9 +2,13 @@ package com.Elef.userservice.service;
 
 import com.Elef.userservice.entity.User;
 import com.Elef.userservice.repository.UserRepo;
+import com.Elef.userservice.vo.Department;
+import com.Elef.userservice.vo.ResponseTemplateVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,15 +17,13 @@ public class UserService {
 
     @Autowired
     private UserRepo userRepo;
+    @Autowired
+    private RestTemplate restTemplate;
 
     public List<User> getAllUsers() {
         return userRepo.findAll();
     }
 
-    public User getUserById(Long id) {
-        Optional<User> optionalUser = userRepo.findById(id);
-        return optionalUser.orElse(null);
-    }
 
     public User createUser(User user) {
         return userRepo.save(user);
@@ -45,4 +47,22 @@ public class UserService {
     public void deleteUser(Long id) {
         userRepo.deleteById(id);
     }
+
+    public ResponseTemplateVo getUserWithDep(Long id) {
+        ResponseTemplateVo vo = new ResponseTemplateVo();
+        Optional<User> userOptional = userRepo.findById(id);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            Department department = restTemplate.getForObject("http://localhost:8080/departments/" + user.getDepartmentId(), Department.class);
+            vo.setUser(user);
+            vo.setDepartment(department);
+        } else {
+            // Handle the case when the user with the given ID is not found
+            // You can throw an exception, return an appropriate response, or handle it based on your requirements.
+        }
+        return vo;
+    }
+
+
+
 }

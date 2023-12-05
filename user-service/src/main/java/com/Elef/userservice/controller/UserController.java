@@ -2,6 +2,7 @@ package com.Elef.userservice.controller;
 
 import com.Elef.userservice.entity.User;
 import com.Elef.userservice.service.UserService;
+import com.Elef.userservice.vo.ResponseTemplateVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,10 +26,10 @@ public class UserController {
 
     // Get user by ID
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        User user = userService.getUserById(id);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+    public ResponseTemplateVo getUserWithDep(@PathVariable Long id){
+        return userService.getUserWithDep(id);
     }
+
 
     // Create a new user
     @PostMapping
