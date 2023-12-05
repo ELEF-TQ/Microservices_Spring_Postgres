@@ -1,8 +1,8 @@
 server:
-  port: 8080
+  port: 9090
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:6000/Department-Service
+    url: jdbc:mysql://localhost:3306/User-Service
     username: postgres
     password: admin
     driver-class-name: org.postgresql.Driver
@@ -13,4 +13,3 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-
