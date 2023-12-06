@@ -53,12 +53,11 @@ public class UserService {
         Optional<User> userOptional = userRepo.findById(id);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
-            Department department = restTemplate.getForObject("http://localhost:8080/departments/" + user.getDepartmentId(), Department.class);
+            Department department = restTemplate.getForObject("http://DEPARTMENT-SERVICE/departments/" + user.getDepartmentId(), Department.class);
             vo.setUser(user);
             vo.setDepartment(department);
         } else {
-            // Handle the case when the user with the given ID is not found
-            // You can throw an exception, return an appropriate response, or handle it based on your requirements.
+
         }
         return vo;
     }
