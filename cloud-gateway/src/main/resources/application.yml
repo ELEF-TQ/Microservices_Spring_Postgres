@@ -1,13 +1,7 @@
 server:
   port: 6060
 
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://localhost:7070/eureka/
-      
+
 spring:
   cloud:
     gateway:
@@ -22,3 +16,5 @@ spring:
             - Path=/departments/**
   application:
     name: API-GATEWAY
+  main:
+    web-application-type: reactive
